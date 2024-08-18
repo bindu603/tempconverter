@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Temperature Converter</title>
+  <style>
+    body {
+      background-image: url('E:\v2havadurumu_1670053019.jpg');
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+    }
+
+    .converter {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    input, select, button {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    #result {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="converter">
+    <label for="temperature">Temperature:</label>
+    <input type="text" id="temperature" name="temperature">
+    <select id="unit">
+      <option value="celsius">Celsius</option>
+      <option value="fahrenheit">Fahrenheit</option>
+      <option value="kelvin">Kelvin</option>
+    </select>
+    <button onclick="convertTemperature()">Convert</button>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    function convertTemperature() {
+      const temperatureInput = document.getElementById('temperature').value;
+      const unitInput = document.getElementById('unit').value;
+      const resultElement = document.getElementById('result');
+
+      // Validate input
+      if (isNaN(temperatureInput)) {
+        resultElement.textContent = "Please enter a valid number";
+        return;
+      }
+
+      const temperature = parseFloat(temperatureInput);
+
+      let convertedTemperature;
+      let convertedUnit;
+
+      switch (unitInput) {
+        case 'celsius':
+          convertedTemperature = (temperature * 9/5) + 32;
+          convertedUnit = 'Fahrenheit';
+          break;
+        case 'fahrenheit':
+          convertedTemperature = (temperature - 32) * 5/9;
+          convertedUnit = 'Celsius';
+          break;
+        case 'kelvin':
+          convertedTemperature = temperature + 273.15;
+          convertedUnit = 'Kelvin';
+          break;
+        default:
+          resultElement.textContent = "Invalid unit";
+          return;
+      }
+
+      resultElement.textContent = `${temperature} ${unitInput} is equal to ${convertedTemperature.toFixed(2)} ${convertedUnit}`;
+    }
+  </script>
+</body>
+</html>
